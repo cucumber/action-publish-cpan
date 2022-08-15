@@ -1,0 +1,27 @@
+name: 'Publish to CPAN'
+description: 'Publish a CPAN module'
+inputs:
+  cpan-user: 
+    description: "Username for authenticating with PAUSE/CPAN"
+    required: true
+  cpan-password: 
+    description: "Password for authenticating with PAUSE/CPAN"
+    required: true
+  working-directory:
+    description: "Path within the repo to the folder where the mix.exs file lives"
+    required: false
+    default: "."
+runs:
+  using: "composite"
+  steps:
+    - name: install dependencies
+      run: mix deps.get
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: publish package
+      run: |
+        mix hex.publish --yes
+      env:
+        HEX_API_KEY: ${{ inputs.hex-api-key }}
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
