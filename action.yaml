@@ -14,9 +14,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: apt-get --assume-yes update 
+    - run: sudo apt-get --assume-yes update 
       shell: bash
-    - run: apt-get --assume-yes install cpanminus
+    - run: sudo apt-get --assume-yes install cpanminus
       shell: bash
     - run: cpanm --notest Dist::Zilla
       shell: bash
