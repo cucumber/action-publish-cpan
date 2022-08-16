@@ -29,13 +29,15 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: build package
+      id: build
       run: |
-        dzil build --verbose
+        filename=$(dzil build | tail -2 | head -1 | sed 's/.*writing archive to \(.*\)/\1/')
+        echo "::set-output name=filename::$filename"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: upload to cpan
       run: |
-        cpan-upload --user $CPAN_USER --password $CPAN_PASSWORD *.tar.gz
+        cpan-upload --user $CPAN_USER --password $CPAN_PASSWORD ${{ steps.build.outputs.filename }}
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       env:
