@@ -25,8 +25,8 @@ jobs:
           cpan-user: ${{ secrets.CPAN_USER }}
           cpan-password: ${{ secrets.CPAN_PASSWORD }}
           working-directory: "perl"
-      - name: Assert that latest published package version is as expected
+      - name: Assert that latest published package version is available on CPAN
         timeout-minutes: 1
         run: |
           version=0.0.$GITHUB_RUN_NUMBER
-          curl --silent --fail https://hex.pm/packages/cucumber_test_release_automation/$version > /dev/null
+          curl --silent --fail https://metacpan.org/release/CUKEBOT/Cucumber-Test-Release-Automation-v$version > /dev/null
