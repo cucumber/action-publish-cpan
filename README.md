@@ -2,7 +2,7 @@
 
 # action-publish-cpan
 
-Publishes a Prl module to https://cpan.org
+Publishes a Prl module to https://cpan.org using `Dist::Zilla`
 
 ## Inputs
 
