@@ -27,5 +27,9 @@ jobs:
         timeout-minutes: 1
         run: |
           version=0.0.$GITHUB_RUN_NUMBER
-          echo "Checking for $version on CPAN servers"
-          curl --silent --fail https://metacpan.org/release/CUKEBOT/Cucumber-Test-Release-Automation-$version > /dev/null
+          url=https://metacpan.org/release/CUKEBOT/Cucumber-Test-Release-Automation-$version
+          echo "Checking for $version on CPAN servers at $url"
+          while ! curl --silent --fail $url > /dev/null
+          do
+            echo "trying again.."
+          done
