@@ -15,8 +15,11 @@ runs:
   using: "composite"
   steps:
     - run: apt-get --assume-yes update 
+      shell: bash
     - run: apt-get --assume-yes install cpanminus
+      shell: bash
     - run: cpanm --notest Dist::Zilla
+      shell: bash
     - name: build package
       run: |
         dzil build
