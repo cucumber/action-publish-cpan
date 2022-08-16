@@ -16,11 +16,12 @@ runs:
   steps:
     - run: sudo apt-get --assume-yes update 
       shell: bash
-    - run: sudo apt-get --assume-yes install cpanminus
+    - run: sudo apt-get --assume-yes install perl cpanminus
       shell: bash
     - name: update PATH to include cpan binary directory
       shell: bash
       run: |
+        perl -V
         cpanm -V 
         cpanm -V | grep installsitebin | cut -d "=" -f2 >> $GITHUB_PATH
     - run: echo "$PATH"
