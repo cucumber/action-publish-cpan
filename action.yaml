@@ -26,7 +26,7 @@ runs:
         cpanm -V | grep installsitebin | cut -d "=" -f2 >> $GITHUB_PATH
     - run: echo "$PATH"
       shell: bash
-    - run: cpanm --notest Dist::Zilla
+    - run: cpanm --notest --sudo Dist::Zilla
       shell: bash
     - run: dzil build
       shell: bash
