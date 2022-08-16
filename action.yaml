@@ -14,14 +14,19 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: install dependencies
-      run: mix deps.get
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
-    - name: publish package
+    - run: apt-get --assume-yes update 
+    - run: apt-get --assume-yes install cpanminus
+    - run: cpanm --notest Dist::Zilla
+    - name: build package
       run: |
-        mix hex.publish --yes
-      env:
-        HEX_API_KEY: ${{ inputs.hex-api-key }}
+        dzil build
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+    - name: upload to cpan
+      run: |
+        cpan-upload --user $CPAN_USER --password $CPAN_PASSWORD *.tar.gz
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        CPAN_USER: ${{ inputs.cpan-user }}
+        CPAN_PASSWORD: ${{ inputs.cpan-password }}
