@@ -21,7 +21,7 @@ runs:
     - run: cpanm --notest Dist::Zilla
       shell: bash
     - name: update PATH to include cpan binary directory
-      shall: bash
+      shell: bash
       run: cpanm -V | grep installsitebin | cut -d "=" -f2 >> $GITHUB_PATH
     - run: dzil build
       shell: bash
