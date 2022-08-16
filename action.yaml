@@ -18,7 +18,11 @@ runs:
       shell: bash
     - run: sudo apt-get --assume-yes install perl cpanminus
       shell: bash
+    - run: perl -v
+      shell: bash
     - run: cpanm --notest --sudo Dist::Zilla
+      shell: bash
+    - run: dzil --version
       shell: bash
     - run: dzil build
       shell: bash
