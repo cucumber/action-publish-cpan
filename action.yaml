@@ -24,7 +24,12 @@ runs:
       shell: bash
     - run: dzil --version
       shell: bash
-    - run: dzil build
+    - name: install dependencies required for building
+      run: dzil authordeps --missing | cpanm
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: build package
+      run: dzil build
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: upload to cpan
