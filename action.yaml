@@ -22,6 +22,7 @@ runs:
       shell: bash
       run: cpanm -V | grep installsitebin | cut -d "=" -f2 >> $GITHUB_PATH
     - run: echo "$PATH"
+      shell: bash
     - run: cpanm --notest Dist::Zilla
       shell: bash
     - run: dzil build
