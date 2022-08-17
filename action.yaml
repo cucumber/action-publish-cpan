@@ -14,14 +14,32 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: install dependencies
-      run: mix deps.get
+    - run: sudo apt-get --assume-yes update 
+      shell: bash
+    - run: sudo apt-get --assume-yes install perl cpanminus
+      shell: bash
+    - run: perl -v
+      shell: bash
+    - run: cpanm --notest --sudo Dist::Zilla
+      shell: bash
+    - run: dzil --version
+      shell: bash
+    - name: install dependencies required for building
+      run: dzil authordeps --missing | cpanm --sudo --notest
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-    - name: publish package
+    - name: build package
+      id: build
       run: |
-        mix hex.publish --yes
-      env:
-        HEX_API_KEY: ${{ inputs.hex-api-key }}
+        filename=$(dzil build | tail -2 | head -1 | sed 's/.*writing archive to \(.*\)/\1/')
+        echo "::set-output name=filename::$filename"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+    - name: upload to cpan
+      run: |
+        cpan-upload --user $CPAN_USER --password $CPAN_PASSWORD ${{ steps.build.outputs.filename }}
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        CPAN_USER: ${{ inputs.cpan-user }}
+        CPAN_PASSWORD: ${{ inputs.cpan-password }}
