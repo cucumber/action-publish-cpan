@@ -16,13 +16,13 @@ jobs:
           version=0.0.$GITHUB_RUN_NUMBER
           sed -i "s/0.0.0/$version/g" dist.ini
           echo "::set-output name=version::$version"
-        working-directory: "perl"
+        working-directory: "test"
       - name: Test the action
         uses: ./
         with:
           cpan-user: ${{ secrets.CPAN_USER }}
           cpan-password: ${{ secrets.CPAN_PASSWORD }}
-          working-directory: "perl"
+          working-directory: "test"
       - name: Assert that latest published package version is available on CPAN
         timeout-minutes: 60
         run: |
