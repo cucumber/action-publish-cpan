@@ -14,9 +14,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: sudo apt-get --assume-yes update 
+    - run: sudo apt-get --assume-yes update
       shell: bash
-    - run: sudo apt-get --assume-yes install perl cpanminus
+    - run: sudo apt-get --assume-yes install perl cpanminus libdist-zilla-perl libdist-zilla-plugin-metaprovides-package-perl libdist-zilla-plugin-git-perl
       shell: bash
     - run: perl -v
       shell: bash
