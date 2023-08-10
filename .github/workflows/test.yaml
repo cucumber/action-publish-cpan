@@ -15,7 +15,7 @@ jobs:
         run: |
           version=0.0.$GITHUB_RUN_NUMBER
           sed -i "s/0.0.0/$version/g" dist.ini
-          echo "::set-output name=version::$version"
+          echo "version=$version" >> $GITHUB_OUTPUT
         working-directory: "test"
       - name: Test the action
         uses: ./
