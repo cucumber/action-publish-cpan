@@ -31,6 +31,13 @@ runs:
     - name: build package
       id: build
       run: |
+        if [[ ! -e CHANGELOG.md ]]
+        then
+           if [[ -e ../CHANGELOG.md ]]
+           then
+              cp ../CHANGELOG.md CHANGELOG.md
+           fi
+        fi
         filename=$(dzil build | tail -2 | head -1 | sed 's/.*writing archive to \(.*\)/\1/')
         echo "filename=$filename" >> $GITHUB_OUTPUT
       shell: bash
