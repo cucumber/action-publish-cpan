@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Publish to CPAN
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Set unique package version
         id: set-version
         run: |
