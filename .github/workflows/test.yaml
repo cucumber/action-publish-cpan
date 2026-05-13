@@ -30,11 +30,12 @@ jobs:
       - name: Assert that latest published package version is available on CPAN
         timeout-minutes: 60
         run: |
-          version=v${{ steps.set-version.outputs.version }}
-          url=https://metacpan.org/release/CUKEBOT/Cucumber-Test-Release-Automation-$version
-          echo "Checking for $version on CPAN servers at $url"
+          url="https://metacpan.org/release/CUKEBOT/Cucumber-Test-Release-Automation-$VERSION"
+          echo "Checking for $VERSION on CPAN servers at $url"
           while ! curl --silent --fail $url > /dev/null
           do
             echo -n "."
             sleep 5
           done
+        env:
+          VERSION: v${{ steps.set-version.outputs.version }}
