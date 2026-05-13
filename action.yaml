@@ -37,9 +37,10 @@ runs:
       working-directory: ${{ inputs.working-directory }}
     - name: upload to cpan
       run: |
-        cpan-upload --user $CPAN_USER --password $CPAN_PASSWORD ${{ steps.build.outputs.filename }}
+        cpan-upload --user "$CPAN_USER" --password "$CPAN_PASSWORD" "$FILE_NAME"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       env:
         CPAN_USER: ${{ inputs.cpan-user }}
         CPAN_PASSWORD: ${{ inputs.cpan-password }}
+        FILE_NAME: ${{ steps.build.outputs.filename }}

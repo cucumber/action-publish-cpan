@@ -3,6 +3,8 @@ name: Test
 on:
   push:
 
+permissions: {}
+
 jobs:
   test-publish-cpan:
     name: Publishes a perl module to CPAN from a dist.ini
