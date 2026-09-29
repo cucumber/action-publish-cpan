@@ -22,7 +22,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
         working-directory: "test"
       - name: Test the action
-        uses: ./
+        uses: $/
         with:
           cpan-user: ${{ secrets.CPAN_USER }}
           cpan-password: ${{ secrets.CPAN_PASSWORD }}
