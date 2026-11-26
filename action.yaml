@@ -28,6 +28,10 @@ runs:
       run: dzil authordeps --missing | cpanm --sudo --notest
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+    - name: install dependencies required for running and testing
+      run: dzil listdeps --missing | cpanm --sudo --notest
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
     - name: build package
       id: build
       run: |
